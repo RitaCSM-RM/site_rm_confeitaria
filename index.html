@@ -29,53 +29,83 @@
             font-family: 'Great Vibes', cursive;
         }
 
-        /* Custom border with SVG pattern */
-        .nut-border {
+        /* New triple line border style */
+        .triple-border-container {
             position: relative;
-            border: 20px solid transparent;
-            border-image-source: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ebc2a4' fill-opacity='0.4'%3E%3Cpath d='M36 34.094c1.333 1.333 2.667 2.667 4 4C42.667 40.667 44.333 42.333 46 44c1.333-1.333 2.667-2.667 4-4 .667-.667 1.333-1.333 2-2 1.333-1.333 2.667-2.667 4-4-1.333-1.333-2.667-2.667-4-4-.667-.667-1.333-1.333-2-2-1.333-1.333-2.667-2.667-4-4 1.333 1.333 2.667 2.667 4 4 .667.667 1.333 1.333 2 2Zm-22 4c1.333 1.333 2.667 2.667 4 4C20.667 44.667 22.333 46.333 24 48c1.333-1.333 2.667-2.667 4-4 .667-.667 1.333-1.333 2-2 1.333-1.333 2.667-2.667 4-4-1.333-1.333-2.667-2.667-4-4-.667-.667-1.333-1.333-2-2-1.333-1.333-2.667-2.667-4-4 1.333 1.333 2.667 2.667 4 4 .667.667 1.333 1.333 2 2Zm-12-2C3.333 37.333 4.667 38.667 6 40c1.333 1.333 2.667 2.667 4 4-1.333-1.333-2.667-2.667-4-4-.667-.667-1.333-1.333-2-2-1.333-1.333-2.667-2.667-4-4 1.333 1.333 2.667 2.667 4 4Zm-2-14c1.333 1.333 2.667 2.667 4 4C4.667 26.667 6.333 28.333 8 30c1.333-1.333 2.667-2.667 4-4 .667-.667 1.333-1.333 2-2 1.333-1.333 2.667-2.667 4-4-1.333-1.333-2.667-2.667-4-4-.667-.667-1.333-1.333-2-2-1.333-1.333-2.667-2.667-4-4 1.333 1.333 2.667 2.667 4 4 .667.667 1.333 1.333 2 2Zm22-4c1.333 1.333 2.667 2.667 4 4C28.667 22.667 30.333 24.333 32 26c1.333-1.333 2.667-2.667 4-4 .667-.667 1.333-1.333 2-2 1.333-1.333 2.667-2.667 4-4-1.333-1.333-2.667-2.667-4-4-.667-.667-1.333-1.333-2-2-1.333-1.333-2.667-2.667-4-4 1.333 1.333 2.667 2.667 4 4 .667.667 1.333 1.333 2 2ZM36 2c1.333 1.333 2.667 2.667 4 4C42.667 8.667 44.333 10.333 46 12c1.333-1.333 2.667-2.667 4-4 .667-.667 1.333-1.333 2-2 1.333-1.333 2.667-2.667 4-4-1.333-1.333-2.667-2.667-4-4C47.333 1.333 46.667.667 46 0c-1.333 1.333-2.667 2.667-4 4 .667.667 1.333 1.333 2 2Zm-22 4c1.333 1.333 2.667 2.667 4 4C20.667 12.667 22.333 14.333 24 16c1.333-1.333 2.667-2.667 4-4 .667-.667 1.333-1.333 2-2 1.333-1.333 2.667-2.667 4-4-1.333-1.333-2.667-2.667-4-4-.667-.667-1.333-1.333-2-2-1.333-1.333-2.667-2.667-4-4 1.333 1.333 2.667 2.667 4 4 .667.667 1.333 1.333 2 2Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            border-image-slice: 20;
-            border-image-repeat: round;
-            background-clip: padding-box;
+            padding: 10px;
+        }
+
+        .triple-border-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: 
+                inset 0 0 0 1px #ebc2a4,
+                inset 0 0 0 4px #ffe9d5,
+                inset 0 0 0 5px #ebc2a4,
+                inset 0 0 0 8px #ffe9d5,
+                inset 0 0 0 9px #ebc2a4;
+            pointer-events: none;
         }
         
         /* Modal styles */
         .modal-backdrop {
             background-color: rgba(0, 0, 0, 0.75);
         }
+        
+        /* Loading spinner for Gemini API call */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1800ad;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="min-h-screen">
 
     <!-- Container with decorative border -->
-    <div class="nut-border max-w-7xl mx-auto bg-[#ffe9d5] shadow-2xl my-4 md:my-8">
+    <div class="triple-border-container max-w-7xl mx-auto bg-[#ffe9d5] shadow-2xl my-4 md:my-8">
         <div class="p-4 md:p-8">
 
             <!-- Header -->
-            <header class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 pb-4 border-b-2 border-[#ebc2a4]">
+            <header class="flex flex-col md:flex-row justify-between items-center gap-y-4 gap-x-6 pb-4 border-b-2 border-[#ebc2a4]">
                 <!-- Logo -->
-                <div class="flex items-center">
-                    <img src="https://storage.googleapis.com/gemini-prod-us-west1-409903542221-assets/e5e2f690-3334-4054-912f-93d3957297e2" alt="Logo RM Confeitaria Inclusiva" class="h-24 w-auto">
+                <div class="flex-shrink-0">
+                    <img src="https://github.com/RitaCSM-RM/site_rm_confeitaria/blob/main/logo.png?raw=true" alt="Logo RM Confeitaria Inclusiva" class="h-28 w-auto">
                 </div>
                 
-                <!-- Navigation -->
-                <nav class="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-lg font-semibold text-[#1800ad]">
-                    <a href="#apresentacao" class="hover:text-[#ebc2a4] transition-colors duration-300">Apresentação</a>
-                    <a href="#produtos" class="hover:text-[#ebc2a4] transition-colors duration-300">Produtos</a>
-                    <a href="#fornecedores" class="hover:text-[#ebc2a4] transition-colors duration-300">Fornecedores</a>
-                </nav>
-
-                <!-- Social and Contact -->
-                <div class="flex items-center gap-4 text-2xl text-[#1800ad]">
-                    <a href="#" target="_blank" aria-label="Instagram" class="hover:text-[#ebc2a4] transition-colors duration-300"><i class="fab fa-instagram"></i></a>
-                    <span class="text-lg font-semibold">(11) 99999-8888</span>
+                <!-- Right side container for nav and contact -->
+                <div class="flex flex-col items-center gap-3">
+                    <!-- Navigation -->
+                    <nav class="flex flex-wrap justify-center items-center gap-6 md:gap-8 text-3xl text-[#1800ad] font-great-vibes">
+                        <a href="#apresentacao" class="hover:text-[#ebc2a4] transition-colors duration-300">Apresentação</a>
+                        <a href="#produtos" class="hover:text-[#ebc2a4] transition-colors duration-300">Produtos</a>
+                        <a href="#fornecedores" class="hover:text-[#ebc2a4] transition-colors duration-300">Fornecedores</a>
+                    </nav>
+                    <!-- Social and Contact -->
+                    <div class="flex items-center gap-6 text-xl text-[#1800ad]">
+                        <a href="https://www.instagram.com/rm_confeitariainclusiva?igsh=MXhwb3NuYnAweWk3dA==" target="_blank" aria-label="Instagram" class="hover:text-[#ebc2a4] transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+                        <a href="tel:+5511940042355" class="text-lg font-semibold hover:text-[#ebc2a4] transition-colors duration-300 whitespace-nowrap">(11) 94004-2355</a>
+                    </div>
                 </div>
             </header>
 
             <main class="mt-8">
                 <!-- Apresentação Section -->
                 <section id="apresentacao" class="text-center mb-16 scroll-mt-20">
-                    <h1 class="text-4xl md:text-5xl font-great-vibes text-[#1800ad] mb-4">Doçura e Cuidado em Cada Pedaço</h1>
+                    <h1 class="text-5xl md:text-6xl font-great-vibes text-[#1800ad] mb-4">Doçura e Cuidado em Cada Pedaço</h1>
                     <p class="max-w-3xl mx-auto text-lg leading-relaxed text-gray-700">
                         Bem-vindo à RM Confeitaria Inclusiva! Nascemos do sonho de criar doces e bolos deliciosos que todos possam desfrutar, independentemente de restrições alimentares. Cada receita é pensada com carinho, utilizando ingredientes de alta qualidade e muito amor, para levar até você uma experiência de sabor inesquecível e segura.
                     </p>
@@ -83,7 +113,7 @@
 
                 <!-- Produtos Section -->
                 <section id="produtos" class="mb-16 scroll-mt-20">
-                    <h2 class="text-4xl font-bold text-center mb-10 text-[#1800ad]">Nossas Delícias</h2>
+                    <h2 class="text-5xl md:text-6xl font-great-vibes text-center mb-10 text-[#1800ad]">Nossas Delícias</h2>
                     <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         <!-- Product cards will be injected here by JavaScript -->
                     </div>
@@ -91,18 +121,30 @@
 
                 <!-- Fornecedores Section -->
                 <section id="fornecedores" class="scroll-mt-20">
-                    <h2 class="text-4xl font-bold text-center mb-10 text-[#1800ad]">Nossos Parceiros</h2>
+                    <h2 class="text-5xl md:text-6xl font-great-vibes text-center mb-10 text-[#1800ad]">Nossos Parceiros</h2>
                     <p class="text-center max-w-3xl mx-auto text-lg mb-10 text-gray-700">
                         A qualidade dos nossos produtos começa na escolha dos ingredientes. Temos orgulho de trabalhar com fornecedores que compartilham dos nossos valores de excelência e sustentabilidade.
                     </p>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        <!-- Supplier placeholders -->
-                        <div class="bg-gray-200/50 aspect-square rounded-lg flex items-center justify-center text-gray-500 text-xl font-semibold">Fornecedor 1</div>
-                        <div class="bg-gray-200/50 aspect-square rounded-lg flex items-center justify-center text-gray-500 text-xl font-semibold">Fornecedor 2</div>
-                        <div class="bg-gray-200/50 aspect-square rounded-lg flex items-center justify-center text-gray-500 text-xl font-semibold">Fornecedor 3</div>
-                        <div class="bg-gray-200/50 aspect-square rounded-lg flex items-center justify-center text-gray-500 text-xl font-semibold">Fornecedor 4</div>
-                        <div class="bg-gray-200/50 aspect-square rounded-lg flex items-center justify-center text-gray-500 text-xl font-semibold">Fornecedor 5</div>
-                        <div class="bg-gray-200/50 aspect-square rounded-lg flex items-center justify-center text-gray-500 text-xl font-semibold">Fornecedor 6</div>
+                        <!-- Supplier Logos -->
+                        <div class="bg-white/50 p-4 rounded-lg flex items-center justify-center aspect-video">
+                            <img src="http://madhughee.com.br/wp-content/uploads/2018/12/Logo-Madhu-Moldura-Textura-Baixa.png" alt="Logo Madhu Ghee" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <div class="bg-white/50 p-4 rounded-lg flex items-center justify-center aspect-video">
+                            <img src="https://copra.com.br/wp-content/uploads/2019/09/oleo-de-coco.png" alt="Logo Copra" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <div class="bg-white/50 p-4 rounded-lg flex items-center justify-center aspect-video">
+                            <img src="https://www.callebaut.com/themes/custom/callebaut/assets/img/logos/callebaut-site-logo--full.svg" alt="Logo Adoçante Culinário" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <div class="bg-white/50 p-4 rounded-lg flex items-center justify-center aspect-video">
+                            <img src="https://www.gobeche.com.br/assets/site/images/logo-loja2.png" alt="Logo Gobeche" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <div class="bg-white/50 p-4 rounded-lg flex items-center justify-center aspect-video">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzcKHzngEtBA880EcLPW6IIFaDvNTa1x0l4A&s" alt="Logo Chocolife" class="max-h-full max-w-full object-contain">
+                        </div>
+                        <div class="bg-white/50 p-4 rounded-lg flex items-center justify-center aspect-video">
+                            <img src="https://www.ingredientesonline.com.br/static/version1750465438/frontend/Amasty/JetTheme_Ionline/pt_BR/images/logo.svg" alt="Logo Ingredientes Online" class="max-h-full max-w-full object-contain">
+                        </div>
                     </div>
                 </section>
             </main>
@@ -127,9 +169,19 @@
                 <div class="p-6 md:p-8 flex flex-col">
                     <h3 id="modal-title" class="text-3xl font-bold text-[#1800ad] mb-4"></h3>
                     <p id="modal-description" class="text-gray-700 mb-4 flex-grow"></p>
-                    <div>
+                    <div class="mb-6">
                         <h4 class="text-xl font-semibold text-gray-800 mb-2">Ingredientes:</h4>
                         <p id="modal-ingredients" class="text-gray-600"></p>
+                    </div>
+                     <!-- Gemini Feature Section -->
+                    <div class="mt-auto pt-4 border-t border-gray-200">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-3">Sugestão de Harmonização</h4>
+                        <button id="generate-suggestion-btn" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                            ✨ Gerar Sugestão com IA
+                        </button>
+                        <div id="suggestion-result" class="mt-4 text-gray-600 bg-gray-100 p-4 rounded-lg min-h-[50px]">
+                            <!-- Gemini's suggestion will appear here -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,29 +191,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // --- Product Data ---
-            // This is where you can easily update your products.
             const products = [
                 {
                     name: "Bolo de Cenoura",
-                    image: "https://storage.googleapis.com/gemini-prod-us-west1-409903542221-assets/e692243e-f6f8-4f51-872f-53027b17d598",
+                    image: "https://github.com/RitaCSM-RM/site_rm_confeitaria/blob/main/Bolo%20de%20Cenoura.jpeg?raw=true",
                     description: "Nosso clássico bolo de cenoura fofinho com uma generosa cobertura de brigadeiro cremoso. Uma combinação perfeita que agrada a todos os paladares.",
                     ingredients: "Cenoura fresca, farinha de trigo (ou versão sem glúten), ovos, óleo vegetal, açúcar, chocolate em pó, leite condensado."
                 },
                 {
                     name: "Pé de Moleque",
-                    image: "https://storage.googleapis.com/gemini-prod-us-west1-409903542221-assets/8a9f6043-4158-403d-8889-21a4869c961e",
+                    image: "https://github.com/RitaCSM-RM/site_rm_confeitaria/blob/main/P%C3%A9%20de%20muleque.jpeg?raw=true",
                     description: "Um doce tradicional brasileiro, crocante e delicioso. Feito com amendoim selecionado e rapadura, é a escolha ideal para um café da tarde especial.",
                     ingredients: "Amendoim torrado, rapadura (ou açúcar mascavo), água."
                 },
                 {
                     name: "Brigadeiro Gourmet",
-                    image: "https://storage.googleapis.com/gemini-prod-us-west1-409903542221-assets/e8e39265-27a3-4874-958d-7888915b881e",
+                    image: "https://github.com/RitaCSM-RM/site_rm_confeitaria/blob/main/Brigadeiro.jpeg?raw=true",
                     description: "O queridinho do Brasil em sua versão gourmet. Cremoso por dentro e com um toque de cacau belga, cada mordida é uma explosão de sabor.",
                     ingredients: "Leite condensado, cacau em pó 100%, manteiga, chocolate granulado belga."
                 },
                 {
                     name: "Bolo de Laranja",
-                    image: "https://storage.googleapis.com/gemini-prod-us-west1-409903542221-assets/3f55095d-7901-44a3-832d-20d0f77259f5",
+                    image: "https://github.com/RitaCSM-RM/site_rm_confeitaria/blob/main/Bolo%20de%20Laranja.jpeg?raw=true",
                     description: "Um bolo leve e perfumado, feito com suco de laranja natural e uma calda cítrica que realça o sabor. Perfeito para qualquer hora do dia.",
                     ingredients: "Laranja fresca, farinha de trigo (ou versão sem glúten), ovos, açúcar, óleo vegetal, fermento."
                 }
@@ -172,10 +223,12 @@
             // --- Populate Product Cards ---
             products.forEach((product, index) => {
                 const card = `
-                    <div class="bg-white/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 flex flex-col">
-                        <img src="${product.image}" alt="Imagem do ${product.name}" class="w-full h-56 object-cover">
+                    <div class="group bg-white/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 flex flex-col text-center">
+                        <div class="overflow-hidden">
+                            <img src="${product.image}" alt="Imagem do ${product.name}" class="w-full h-56 object-cover transition-all duration-500 filter group-hover:saturate-125 group-hover:brightness-110">
+                        </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-2">${product.name}</h3>
+                            <h3 class="text-4xl font-great-vibes text-gray-800 mb-2">${product.name}</h3>
                             <div class="flex-grow"></div>
                             <button data-index="${index}" class="learn-more-btn mt-4 w-full bg-[#1800ad] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#ebc2a4] hover:text-[#1800ad] transition-colors duration-300">
                                 Saiba Mais
@@ -196,6 +249,8 @@
             const modalTitle = document.getElementById('modal-title');
             const modalDescription = document.getElementById('modal-description');
             const modalIngredients = document.getElementById('modal-ingredients');
+            const generateSuggestionBtn = document.getElementById('generate-suggestion-btn');
+            const suggestionResult = document.getElementById('suggestion-result');
 
             const openModal = (index) => {
                 const product = products[index];
@@ -205,12 +260,16 @@
                 modalDescription.textContent = product.description;
                 modalIngredients.textContent = product.ingredients;
                 
+                // Reset Gemini feature section
+                suggestionResult.innerHTML = '';
+                generateSuggestionBtn.disabled = false;
+                
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
                 setTimeout(() => {
                     modalContent.classList.remove('scale-95', 'opacity-0');
                     modalContent.classList.add('scale-100', 'opacity-100');
-                }, 50); // Small delay for transition
+                }, 50);
             };
 
             const closeModal = () => {
@@ -219,7 +278,7 @@
                 setTimeout(() => {
                     modal.classList.add('hidden');
                     modal.classList.remove('flex');
-                }, 300); // Match transition duration
+                }, 300);
             };
 
             learnMoreBtns.forEach(btn => {
@@ -229,18 +288,48 @@
             });
 
             closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
 
-            // Close modal when clicking on the backdrop
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
+            // --- Gemini API Feature ---
+            generateSuggestionBtn.addEventListener('click', async () => {
+                const productName = modalTitle.textContent;
+                suggestionResult.innerHTML = '<div class="loader"></div>';
+                generateSuggestionBtn.disabled = true;
 
-            // Close modal with Escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-                    closeModal();
+                const prompt = `Pense como um sommelier de sobremesas. Para um(a) "${productName}", qual seria a harmonização perfeita? Sugira uma bebida (alcoólica ou não) e uma ocasião ideal para apreciá-lo. Responda em um parágrafo curto e poético, em português do Brasil.`;
+
+                try {
+                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // API key is handled by the environment
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+                    
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        suggestionResult.innerHTML = text.replace(/\n/g, '<br>');
+                    } else {
+                        suggestionResult.textContent = 'Não foi possível gerar uma sugestão no momento. Tente novamente mais tarde.';
+                    }
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    suggestionResult.textContent = 'Ocorreu um erro ao buscar a sugestão. Por favor, verifique o console para mais detalhes.';
+                } finally {
+                    generateSuggestionBtn.disabled = false;
                 }
             });
 
@@ -257,4 +346,3 @@
     </script>
 </body>
 </html>
-
